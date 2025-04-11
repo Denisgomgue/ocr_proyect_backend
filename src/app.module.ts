@@ -1,17 +1,19 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { DocumentsModule } from './documents/documents.module';
 import { ConfigModule } from '@nestjs/config';
+import { MulterModule } from '@nestjs/platform-express';
+import { ComprobanteController } from './controllers/comprobante.controller';
+import { GoogleVisionService } from './services/google-vision.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    DocumentsModule,
+    MulterModule.register({
+      dest: './uploads',
+    }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [ComprobanteController],
+  providers: [GoogleVisionService],
 })
 export class AppModule {}
